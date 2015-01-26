@@ -2,15 +2,16 @@ import simulation.Table
 import simulation.Position
 
 package simulation {
-  class Robot(board: Table) {
+  class Robot(table: Table) {
     var position: Option[Position] = None
 
-    // TODO validate on board
     def place(newPosition: Position) = {
-      position = Some(newPosition)
+      if (table includes newPosition) {
+        position = Some(newPosition)
+      }
     }
 
-    def move() = position.foreach(p => place(board.nextPosition(p)))
+    def move() = position.foreach(p => place(p.next))
 
     def turnLeft() = position.foreach(p => place(p.left))
 

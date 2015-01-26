@@ -22,6 +22,13 @@ class RobotSpec extends FlatSpec with Matchers {
     assert(robot.position == Some(new Position(North, 1, 2)))
   }
 
+  it should "not be able to be placed outsided the table" in {
+    val robot = new Robot(new Table(3, 3))
+    robot.place(new Position(North, 4, 4))
+
+    assert(robot.position == None)
+  }
+
   it should "not be able to turn left until placed" in {
     val robot = new Robot(new Table(3, 3))
 

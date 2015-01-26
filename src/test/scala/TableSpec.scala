@@ -4,19 +4,33 @@ import simulation.Position
 import simulation.directions._
 
 class TableSpec extends FlatSpec with Matchers {
-  it should "be able to determine next position given one" in {
+  it should "be true when position is within board boundaries" in {
     val table = new Table(3, 3)
 
-    val next = table.nextPosition(new Position(North, 1, 1))
-
-    assert(next == new Position(North, 1, 2))
+    assert(table includes new Position(North, 0, 0))
   }
 
-  it should "not determine the next position to be one out of bounds" in {
+  it should "be false when the lower height bound is exceeded" in {
     val table = new Table(3, 3)
 
-    val next = table.nextPosition(new Position(South, 0, 0))
+    assert(!(table includes new Position(North, 0, -1)))
+  }
 
-    assert(next == new Position(South, 0, 0))
+  it should "be false when the upper height bound is exceeded" in {
+    val table = new Table(3, 3)
+
+    assert(!(table includes new Position(North, 0, 3)))
+  }
+
+  it should "be false when the lower width bound is exceeded" in {
+    val table = new Table(3, 3)
+
+    assert(!(table includes new Position(North, -1, 0)))
+  }
+
+  it should "be false when the upper width bound is exceeded" in {
+    val table = new Table(3, 3)
+
+    assert(!(table includes new Position(North, 3, 0)))
   }
 }
