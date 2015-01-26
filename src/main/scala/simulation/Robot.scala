@@ -5,6 +5,7 @@ package simulation {
   class Robot(board: Table) {
     var position: Option[Position] = None
 
+    // TODO validate on board
     def place(newPosition: Position) = {
       position = Some(newPosition)
     }

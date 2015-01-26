@@ -1,32 +1,23 @@
-import simulation.Table
 import simulation.Robot
-import simulation.Position
-import simulation.directions._
+import simulation.Table
+import simulation.commands.PlaceCommand
 
 object Main {
   def report(robot: Robot) = println(robot.position getOrElse "not placed")
 
   def main(args: Array[String]) = {
-    val table = new Table(3, 3)
+    val table = new Table(5, 5)
     val robot = new Robot(table)
 
-    report(robot)
-
-    robot.place(new Position(North, 0, 0))
-    report(robot)
-
-    robot.move()
-    report(robot)
-
-    robot.turnLeft()
-    robot.move()
-    report(robot)
-
-    robot.move()
-    report(robot)
-
-    robot.turnRight()
-    robot.move()
-    report(robot)
+    for (line <- io.Source.stdin.getLines) {
+      line.toUpperCase match {
+        case PlaceCommand(position) => robot.place(position)
+        case "MOVE"                 => robot.move()
+        case "LEFT"                 => robot.turnLeft()
+        case "RIGHT"                => robot.turnRight()
+        case "REPORT"               => report(robot)
+        case _                      => println("unknown command")
+      }
+    }
   }
 }

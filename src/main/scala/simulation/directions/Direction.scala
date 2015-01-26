@@ -1,10 +1,21 @@
 package simulation.directions
 
 sealed trait Direction {
-  def name: String
-  def left: Direction
-  def right: Direction
+  val name: String
+  val left: Direction
+  val right: Direction
+
   override def toString = name
+}
+
+object Direction {
+  def unapply(string: String) = string match {
+    case North.name => Some(North)
+    case East.name  => Some(East)
+    case South.name => Some(South)
+    case West.name  => Some(West)
+    case _          => None
+  }
 }
 
 case object North extends Direction {
