@@ -4,11 +4,11 @@ import simulation.Position
 
 package simulation.commands {
   object PlaceCommand {
-    val place = new Regex("""PLACE ([A-Z]+),(\d+),(\d+)""")
+    val place = new Regex("""PLACE (\d+),(\d+),([A-Z]+)""")
 
     def unapply(string: String) = string match {
-      case place(Direction(direction), x, y) =>
-        Some(new Position(direction, x.toInt, y.toInt))
+      case place(x, y, Direction(direction)) =>
+        Some(new Position(x.toInt, y.toInt, direction))
       case _ =>
         None
     }

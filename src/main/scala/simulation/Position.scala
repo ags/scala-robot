@@ -1,17 +1,17 @@
 import simulation.directions._
 
 package simulation {
-  case class Position(direction: Direction, x: Int, y: Int) {
+  case class Position(x: Int, y: Int, direction: Direction) {
     def next = direction match {
-      case North => new Position(direction, x, y + 1)
-      case East  => new Position(direction, x + 1, y)
-      case South => new Position(direction, x, y - 1)
-      case West  => new Position(direction, x - 1, y)
+      case North => new Position(x, y + 1, direction)
+      case East  => new Position(x + 1, y, direction)
+      case South => new Position(x, y - 1, direction)
+      case West  => new Position(x - 1, y, direction)
     }
 
-    def left = new Position(direction.left, x, y)
+    def left = new Position(x, y, direction.left)
 
-    def right = new Position(direction.right, x, y)
+    def right = new Position(x, y, direction.right)
 
     override def toString = "%d,%d,%s" format(x, y, direction)
   }

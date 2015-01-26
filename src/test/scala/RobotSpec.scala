@@ -15,16 +15,16 @@ class RobotSpec extends FlatSpec with Matchers {
 
   it should "be able to move once placed" in {
     val robot = new Robot(new Table(3, 3))
-    robot.place(new Position(North, 1, 1))
+    robot.place(new Position(1, 1, North))
 
     robot.move()
 
-    assert(robot.position == Some(new Position(North, 1, 2)))
+    assert(robot.position == Some(new Position(1, 2, North)))
   }
 
   it should "not be able to be placed outsided the table" in {
     val robot = new Robot(new Table(3, 3))
-    robot.place(new Position(North, 4, 4))
+    robot.place(new Position(4, 4, North))
 
     assert(robot.position == None)
   }
@@ -39,11 +39,11 @@ class RobotSpec extends FlatSpec with Matchers {
 
   it should "be able to turn left once placed" in {
     val robot = new Robot(new Table(3, 3))
-    robot.place(new Position(North, 1, 1))
+    robot.place(new Position(1, 1, North))
 
     robot.turnLeft()
 
-    assert(robot.position == Some(new Position(West, 1, 1)))
+    assert(robot.position == Some(new Position(1, 1, West)))
   }
 
   it should "not be able to turn right until placed" in {
@@ -56,10 +56,10 @@ class RobotSpec extends FlatSpec with Matchers {
 
   it should "be able to turn right once placed" in {
     val robot = new Robot(new Table(3, 3))
-    robot.place(new Position(North, 1, 1))
+    robot.place(new Position(1, 1, North))
 
     robot.turnRight()
 
-    assert(robot.position == Some(new Position(East, 1, 1)))
+    assert(robot.position == Some(new Position(1, 1, East)))
   }
 }
